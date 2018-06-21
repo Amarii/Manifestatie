@@ -5,11 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Jellybeans</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
 </head>
 <body>
-    <h1>HI!</h1>
+
+    <div class="container text-center">
+        <h1 class="mt-5">Welkom!</h1>
+        <h4 class="mt-5">bij jellybean.tk</h4>
+        <button class="mt-5 btn btn-lg btn-primary rounded-0">Deelnemen!</button>
+    </div>
+        
+
+    <script src="js/bundle.js"></script>
 
     <script type="text/javascript">
         var socket = io();
@@ -17,7 +25,7 @@
           alert(data)
         });
         socket.emit('echo', 'this is a message');
-      </script>
+    </script>
   
 </body>
 </html>

@@ -12,6 +12,10 @@ app.get('/main.css', function (req, res) {
     res.sendfile(__dirname + '/www/main.css');
 });
 
+app.get('/bundle.js', function (req, res) {
+    res.sendfile(__dirname + '/www/scripts.js');
+});
+
 app.get('/scripts.js', function (req, res) {
     res.sendfile(__dirname + '/www/scripts.js');
 });
