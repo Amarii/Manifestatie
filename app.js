@@ -1,15 +1,17 @@
-//Load HTTP module
-var http = require("http");
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
-//Create HTTP server and listen on port 8000 for requests
-http.createServer(function (request, response) {
+server.listen(80);
 
-   // Set the response HTTP header with HTTP status and Content type
-   response.writeHead(200, {'Content-Type': 'text/plain'});
+app.get('/', function (req, res) {
+    res.sendfile(__dirname + '/www/index.html');
+});
 
-   // Send the response body "Hello World"
-   response.end('Hello World\n');
-}).listen(8000);
+io.on('connection', function (socket) {
+  socket.on('echo', function (data) {
+    socket.emit('telme', data);
+  });
+});
 
-// Print URL for accessing server
-console.log('Server running at http://127.0.0.1:8000/')
+console.log('Server running at http://localhost:80/')
