@@ -8,6 +8,10 @@ app.get('/', function (req, res) {
     res.sendfile(__dirname + '/www/index.html');
 });
 
+app.get('/is_super_admin_dashboard_op4/', function (req, res) {
+    res.sendfile(__dirname + '/www/dashboard.html');
+});
+
 io.on('connection', function (socket) {
   socket.on('echo', function (data) {
     socket.emit('telme', data);
