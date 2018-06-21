@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Jellybeans</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+</head>
+<body>
+
+    <div class="container text-center">
+        <h2 class="mt-5">Hoeveel Jelly beans zitten er in deze pot?</h2>
+        <img class="mt-4" src="http://calculate-this.com/sites/default/files/styles/large/public/field/image/jelly-bean-jar.jpg?itok=s80OCiXc" alt="">
+        <form class="form mt-5" action="">
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="Aantal">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary rounded-0 w-100">Verzenden</button>
+            </div>
+        </form>
+    </div>
+        
+
+    <script src="js/bundle.js"></script>
+
+    <script type="text/javascript">
+        var socket = io();
+        socket.on('telme', function(data){
+          alert(data)
+        });
+        socket.emit('echo', 'this is a message');
+    </script>
+  
+</body>
+</html>
