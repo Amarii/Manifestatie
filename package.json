@@ -1,0 +1,23 @@
+{
+  "name": "manifestatie",
+  "version": "1.0.0",
+  "description": "Manifestatie voor Filosofie OP4",
+  "main": "app.js\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C",
+  "dependencies": {
+    "nodejs": "^0.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amarii/Manifestatie.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Amarii/Manifestatie/issues"
+  },
+  "homepage": "https://github.com/Amarii/Manifestatie"
+}
