@@ -4,4 +4,10 @@ body {
   color: #ecf0f1;
 }
 
+.loading-image {
+  max-width: 50%;
+  margin: 0px auto;
+  display: block;
+}
+
 /*# sourceMappingURL=main.css.map */

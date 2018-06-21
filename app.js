@@ -5,68 +5,71 @@ var io = require('socket.io')(server);
 server.listen(80);
 
 app.get('/', function (req, res) {
-    res.sendfile(__dirname + '/www/index.html');
+    res.sendFile(__dirname + '/www/public/index.html');
 });
 
-app.get('/main.css', function (req, res) {
-    res.sendfile(__dirname + '/www/main.css');
+app.get('/css/main.css', function (req, res) {
+    res.sendFile(__dirname + '/www/public/css/main.css');
 });
 
-app.get('/bundle.js', function (req, res) {
-    res.sendfile(__dirname + '/www/scripts.js');
+app.get('/js/bundle.js', function (req, res) {
+    res.sendFile(__dirname + '/www/public/js/bundle.js');
 });
 
-app.get('/scripts.js', function (req, res) {
-    res.sendfile(__dirname + '/www/scripts.js');
+app.get('/js/sockets.js', function (req, res) {
+    res.sendFile(__dirname + '/www/js/sockets.js');
+});
+
+app.get('/js/home.js', function (req, res) {
+    res.sendFile(__dirname + '/www/js/home.js');
+});
+
+app.get('/js/playscreen.js', function (req, res) {
+    res.sendFile(__dirname + '/www/js/playscreen.js');
+});
+
+app.get('/node_modules/bootstrap/dist/css/bootstrap.min.css', function (req, res) {
+    res.sendFile(__dirname + '/node_modules/bootstrap/dist/css/bootstrap.min.css');
 });
 
 app.get('/is_super_admin_dashboard_op4/', function (req, res) {
-    res.sendfile(__dirname + '/www/dashboard.html');
-});
-
-
-// Connect
-io.on('connection', function (socket) {
-    console.log("Welcome " + socket.id);
-    jelly.connected++;
-
-    socket.on('disconnect', function (data) {
-        jelly.connected--;
-        console.log("Bye " + socket.id);
-    });
-
-    socket.on('respond', jelly.addResponse);
-
-    socket.on('admin-dashboard-start-round', jelly.start);
-
-    io.emit("participants", jelly.connected);
+    res.sendFile(__dirname + '/www/public/dashboard.html');
 });
 
 
 let jelly = 
 {
-    connected: 0,
-    responses: [40, 30, 50, 60, 40, 30, 100, 200, 300],
+    playing: [],
+    responses: [],
+    peopleResponded: 0,
     currentNumber: 593,
 
     start()
     {
-        io.emit("start");
+        console.log('Start requested');
 
-        this.peopleResponded = 0;
+        io.emit("start", 'start');
 
-        this.timer();
+        jelly.peopleResponded = 0;
+        jelly.responses = [];
+
+        console.log("Players: " + jelly.playing.length)
+
+        jelly.timer();
         
     },
 
     addResponse(response)
     {
-        this.responses.push(response);
+        jelly.peopleResponded++;
+        jelly.responses.push(Number(response));
     },
 
     sendResult()
     {
         let totalAnswer = 0;
+
+        console.log(this.responses);
 
         for(let i = 0; i < this.responses.length; i++)
         {
@@ -82,10 +85,12 @@ let jelly =
     {
         // Next
         let timer = setInterval(() => {
-            if(this.peopleResponded >= this.connected) {
+            if(this.peopleResponded >= jelly.playing.length) {
                 clearInterval(timer);
                 clearTimeout(timeout);
                 this.sendResult();
+            }else{
+                console.log('Waiting');
             }
         }, 1000);
 
@@ -97,6 +102,31 @@ let jelly =
     }
 };
 
-jelly.start();
+// Connect
+io.on('connection', function (socket) {
+    console.log("Welcome " + socket.id);
 
-console.log('Server running at http://localhost:80/')
+    socket.on('joining', function() {
+        jelly.playing.push(socket.id);
+        console.log("Joined: " + socket.id);
+    });
+
+    socket.on('disconnect', function (data) {
+        
+        var i = jelly.playing.indexOf(socket.id);
+        jelly.playing.splice(i, 1);
+
+        console.log("Bye: " + socket.id);
+    });
+
+    socket.on('respond', jelly.addResponse);
+
+    socket.on('admin-dashboard-start-round', jelly.start);
+
+    // setInterval(function() {
+    //     io.emit("participants", {
+    //         a: jelly.peopleResponded,
+    //         b: jelly.playing
+    //     });
+    // }, 1500);
+});
