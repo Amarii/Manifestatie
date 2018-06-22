@@ -41,6 +41,7 @@ let jelly =
 {
     playing: [],
     responses: [],
+    currentRoundPlayers: 0,
     peopleResponded: 0,
     currentNumber: 593,
 
@@ -52,6 +53,7 @@ let jelly =
 
         jelly.peopleResponded = 0;
         jelly.responses = [];
+        jelly.currentRoundPlayers = jelly.playing.length;
 
         console.log("Players: " + jelly.playing.length)
 
@@ -85,7 +87,7 @@ let jelly =
     {
         // Next
         let timer = setInterval(() => {
-            if(this.peopleResponded >= jelly.playing.length) {
+            if(this.peopleResponded >= jelly.currentRoundPlayers) {
                 clearInterval(timer);
                 clearTimeout(timeout);
                 this.sendResult();
@@ -126,7 +128,8 @@ io.on('connection', function (socket) {
     setInterval(function() {
         io.emit("participants", {
             responded: jelly.responses.length,
-            playing: jelly.playing.length
+            playing: jelly.playing.length,
+            playingNow: jelly.currentRoundPlayers
         });
     }, 1500);
 });

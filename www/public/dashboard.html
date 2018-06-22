@@ -52,7 +52,7 @@
         });
 
         socket.on('participants', function(data){
-            document.getElementById("responded").innerHTML = data.responded + "/" + data.playing + " hebben geantwoord";
+            document.getElementById("responded").innerHTML = data.responded + "/" + data.playingNow + " hebben geantwoord";
             document.getElementById("player-amount").innerHTML = data.playing;
             
         });
