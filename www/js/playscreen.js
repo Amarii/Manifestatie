@@ -46,6 +46,7 @@ var playScreen = {
 
     showAnswer(value)
     {
+        if(!joined) return;
         document.getElementById("please-wait").style.display = "none";
         document.getElementById("average-answer").style.display = "block";
         document.getElementById("guess-screen").style.display = "none";

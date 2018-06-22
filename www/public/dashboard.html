@@ -13,16 +13,41 @@
     <div class="container text-center">
         <h1 class="mt-5">Filosofie Manifistatie (Admin)</h1>
         <h4 class="mt-5">Aantal deelnemers : <span id="amount">0</span> </h4>
-        <button class="mt-5 btn btn-lg btn-primary">Volgende stap ></button>
+
+        <div id="show-average" style="display: none;">
+        </div>
+
+        <div id="show-waiting" style="display: none;">
+            <p>Wachten op deelnemers</p>
+        </div>
+
+
+        <div id="start-btn">
+            <button class="mt-5 btn btn-lg btn-primary" onclick="socket.emit('admin-dashboard-start-round', 'start'); document.getElementById('start-btn').style.display = 'none';">Volgende stap ></button>
+        </div>
     </div>
 
+    <script src="js/bundle.js"></script>
     <script type="text/javascript">
         var socket = io();
-        socket.on('telme', function(data){
-          alert(data)
+        socket.on('start', function(data){
+
+            document.getElementById("show-waiting").style.display = "block";
+
+            document.getElementById("show-average").style.display = "none";
+            document.getElementById("start-btn").style.display = "none";
+            
         });
-        socket.emit('echo', 'this is a message');
-    </script>
+
+        socket.on('show-result', function(data){
+            document.getElementById("show-waiting").style.display = "none";
+
+            document.getElementById("show-average").style.display = "block";
+            document.getElementById("show-average").innerHTML = "<h1>"+ data +"</h1>";
+            document.getElementById("start-btn").style.display = "block";
+        });
+
+        </script>
   
 </body>
 </html>
