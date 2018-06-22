@@ -6,7 +6,8 @@ var socket = io();
 socket.on('start', playScreen.start)
 socket.on('show-result', playScreen.showAnswer)
 
-socket.on('disconnected', function() {
+socket.on('disconnect', function() {
+    console.log("disconnected");
     document.location.reload();
 });
 
