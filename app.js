@@ -61,8 +61,13 @@ let jelly =
         
     },
 
-    addResponse(response)
+    addResponse(response, id)
     {
+        if(jelly.playing.indexOf(id) === -1) {
+            console.log("niet in lijst");
+            return;
+        }
+
         jelly.peopleResponded++;
         jelly.responses.push(Number(response));
     },
@@ -121,7 +126,9 @@ io.on('connection', function (socket) {
         console.log("Bye: " + socket.id);
     });
 
-    socket.on('respond', jelly.addResponse);
+    socket.on('respond', function(response) {
+        jelly.addResponse(response, socket.id);
+    });
 
     socket.on('admin-dashboard-start-round', jelly.start);
 
