@@ -123,10 +123,10 @@ io.on('connection', function (socket) {
 
     socket.on('admin-dashboard-start-round', jelly.start);
 
-    // setInterval(function() {
-    //     io.emit("participants", {
-    //         a: jelly.peopleResponded,
-    //         b: jelly.playing
-    //     });
-    // }, 1500);
+    setInterval(function() {
+        io.emit("participants", {
+            responded: jelly.peopleResponded.length,
+            playing: jelly.playing.length
+        });
+    }, 1500);
 });
