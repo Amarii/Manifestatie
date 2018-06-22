@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
 </head>
 <body>
-    <div id="resultaten" style="position: absolute; top: 20px; left: 20px;">
+    <div id="resultaten" style="position: absolute; top: 20px; left: 20px; display: none;">
         <h1>Alle resultaten:</h1>
     </div>
 
@@ -56,7 +56,8 @@
             document.getElementById("show-average").style.display = "block";
             document.getElementById("show-average").innerHTML = "<h1>"+ data +"</h1>";
             document.getElementById("start-btn").style.display = "block";
-
+            
+            document.getElementById("resultaten").style.display = "block";
             document.getElementById("resultaten").innerHTML +=  "<div style='font-size: 20px;'>Gemiddelde ronde "+ rondes +": <b style='padding-left: 20px; display: inline-block;'>"+ data +"</b></div>";
         });
 
