@@ -63,6 +63,10 @@ let jelly =
 
     addResponse(response, id)
     {
+        if(response > 1000) {
+            return;
+        }
+
         if(jelly.playing.indexOf(id) === -1) {
             console.log("niet in lijst");
             return;
