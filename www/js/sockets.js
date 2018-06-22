@@ -11,3 +11,7 @@ function start()
 
 socket.on('start', playScreen.start)
 socket.on('show-result', playScreen.showAnswer)
+
+setInterval(function() {
+    socket.emit("hithere");
+}, 2000);
