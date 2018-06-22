@@ -58,3 +58,7 @@ var playScreen = {
 document.getElementById("counter-sending").addEventListener("click", function() {
     playScreen.giveAnswer();
 });
+
+document.getElementById("form-submit-dont").addEventListener("onsubmit", function(e) {
+    e.preventDefault();
+});

@@ -125,7 +125,7 @@ io.on('connection', function (socket) {
 
     setInterval(function() {
         io.emit("participants", {
-            responded: jelly.peopleResponded.length,
+            responded: jelly.responses.length,
             playing: jelly.playing.length
         });
     }, 1500);
