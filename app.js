@@ -105,7 +105,7 @@ let jelly =
         let timeout = setTimeout(() => {
             this.sendResult();
             clearInterval(timer);
-        }, 55000);
+        }, 35000);
     }
 };
 
